@@ -35,6 +35,7 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Model_Menu("4", "Tồn Kho", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("5", "Bán Hàng", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("6", "MENU", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("7", "Hóa Đơn", Model_Menu.MenuType.MENU));
         
     }
 
@@ -51,7 +52,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/logo.png"))); // NOI18N
-        jLabel1.setText("Application");
+        jLabel1.setText("Quản Lý");
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);

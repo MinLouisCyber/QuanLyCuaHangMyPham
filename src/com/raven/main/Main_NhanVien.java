@@ -9,6 +9,7 @@ import com.raven.event.EventMenuSelected;
 import com.raven.form.Form_QLHangHoa;
 import com.raven.form.Form_QLBanHang;
 import com.raven.form.Form_QLMenuNV;
+import com.raven.form.Form_QLHoaDon;
 import java.awt.Color;
 import javax.swing.JComponent;
 
@@ -24,6 +25,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
     private Form_QLBanHang form1;
     private Form_QLHangHoa form2;
     private Form_QLMenuNV form3;
+    private Form_QLHoaDon form4;
 
     public Main_NhanVien() {
         initComponents();
@@ -31,6 +33,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
         form1 = new Form_QLBanHang();
         form2 = new Form_QLHangHoa();
         form3 = new Form_QLMenuNV();
+        form4 = new Form_QLHoaDon();
         menu_nv.initMoving(Main_NhanVien.this);
         menu_nv.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -41,6 +44,8 @@ public class Main_NhanVien extends javax.swing.JFrame {
                     setForm(form2);
                 } else if (index == 2) {
                     setForm(form3);
+                } else if (index == 3) {
+                    setForm(form4);
                 }
             }
         });

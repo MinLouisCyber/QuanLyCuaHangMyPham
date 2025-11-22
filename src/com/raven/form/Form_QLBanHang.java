@@ -266,7 +266,6 @@ public class Form_QLBanHang extends JPanel {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     txtTenHang.setText(rs.getString("TenHangBan"));
-                    // DonGia: để dạng số thô, không cần format cũng được
                     txtDonGia.setText(rs.getString("DonGia"));
                     txtTonKho.setText(String.valueOf(rs.getInt("SoLuongTon")));
                 } else {
@@ -371,7 +370,6 @@ public class Form_QLBanHang extends JPanel {
             if (val instanceof Number) {
                 tong += ((Number) val).doubleValue();
             } else if (val != null) {
-                // nếu vì lý do nào đó là String có dấu phẩy
                 String s = val.toString().replace(",", "");
                 try {
                     tong += Double.parseDouble(s);
@@ -407,7 +405,6 @@ public class Form_QLBanHang extends JPanel {
 
         double tongTien;
         try {
-            // lblTongTien đang dạng "1,260,000" -> bỏ dấu phẩy trước khi parse
             String raw = lblTongTien.getText().replace(",", "").trim();
             tongTien = Double.parseDouble(raw);
         } catch (NumberFormatException e) {
@@ -420,6 +417,7 @@ public class Form_QLBanHang extends JPanel {
         PreparedStatement psUpdateMenu = null;
         PreparedStatement psUpdateTonKho = null;
         PreparedStatement psInsertTT = null;
+        PreparedStatement psInsertCT = null;   // <<-- THÊM CHI TIẾT HÓA ĐƠN
 
         try {
             conn = DBConnection.getConnection();
@@ -428,7 +426,7 @@ public class Form_QLBanHang extends JPanel {
             // 1. Tạo mã hóa đơn mới (HD001, HD002, ...)
             String maHD = taoMaHDMoi();
 
-            // 2. INSERT vào HOADON (có cả MaHD)
+            // 2. INSERT vào HOADON
             String sqlHD =
                     "INSERT INTO HOADON (MaHD, NgayTao, TongTien, MaNV, MaKhach) " +
                             "VALUES (?, ?, ?, ?, ?)";
@@ -454,25 +452,45 @@ public class Form_QLBanHang extends JPanel {
             psUpdateMenu = conn.prepareStatement(sqlUpdateMenu);
             psUpdateTonKho = conn.prepareStatement(sqlUpdateTonKho);
 
+            // 3b. Chuẩn bị INSERT chi tiết hóa đơn
+            String sqlCT =
+                    "INSERT INTO CT_HOADON (MaHD, MaHang, TenHang, DonGia, SoLuong, ThanhTien) " +
+                            "VALUES (?, ?, ?, ?, ?, ?)";
+            psInsertCT = conn.prepareStatement(sqlCT);
+
+            // 4. Duyệt giỏ hàng
             for (int i = 0; i < modelGioHang.getRowCount(); i++) {
                 String maHang = modelGioHang.getValueAt(i, 0).toString();
+                String tenHang = modelGioHang.getValueAt(i, 1).toString();
+                double donGia = Double.parseDouble(modelGioHang.getValueAt(i, 2).toString());
                 int soLuong = Integer.parseInt(modelGioHang.getValueAt(i, 3).toString());
+                double thanhTien = donGia * soLuong;
 
-                // MENU
+                // MENU: cộng số lượng đã bán
                 psUpdateMenu.setInt(1, soLuong);
                 psUpdateMenu.setString(2, maHang);
                 psUpdateMenu.addBatch();
 
-                // TONKHO
+                // TONKHO: trừ tồn kho
                 psUpdateTonKho.setInt(1, soLuong);
                 psUpdateTonKho.setString(2, maHang);
                 psUpdateTonKho.addBatch();
+
+                // CT_HOADON: lưu chi tiết từng sản phẩm
+                psInsertCT.setString(1, maHD);
+                psInsertCT.setString(2, maHang);
+                psInsertCT.setString(3, tenHang);
+                psInsertCT.setDouble(4, donGia);
+                psInsertCT.setInt(5, soLuong);
+                psInsertCT.setDouble(6, thanhTien);
+                psInsertCT.addBatch();
             }
 
             psUpdateMenu.executeBatch();
             psUpdateTonKho.executeBatch();
+            psInsertCT.executeBatch();
 
-            // 4. Ghi bảng THANHTOAN
+            // 5. Ghi bảng THANHTOAN
             String sqlTT =
                     "INSERT INTO THANHTOAN (MaKhach, MaHD, MaNV) VALUES (?, ?, ?)";
             psInsertTT = conn.prepareStatement(sqlTT);
@@ -481,7 +499,7 @@ public class Form_QLBanHang extends JPanel {
             psInsertTT.setString(3, maNV);
             psInsertTT.executeUpdate();
 
-            // 5. Commit
+            // 6. Commit
             conn.commit();
 
             JOptionPane.showMessageDialog(this,
@@ -505,6 +523,7 @@ public class Form_QLBanHang extends JPanel {
                 if (psUpdateMenu != null) psUpdateMenu.close();
                 if (psUpdateTonKho != null) psUpdateTonKho.close();
                 if (psInsertTT != null) psInsertTT.close();
+                if (psInsertCT != null) psInsertCT.close();
                 if (conn != null) {
                     conn.setAutoCommit(true);
                     conn.close();

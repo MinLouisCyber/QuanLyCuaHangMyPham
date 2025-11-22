@@ -32,7 +32,7 @@ public class Menu_nv extends javax.swing.JPanel {
         listMenu1.addItem(new Model_Menu("1", "Bán Hàng", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("2", "Hàng Hóa", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("3", "Tra cứu giá bán", Model_Menu.MenuType.MENU));
-//        listMenu1.addItem(new Model_Menu("4", "Khách hàng thân thiết", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("4", "Hóa Đơn", Model_Menu.MenuType.MENU));
 //        listMenu1.addItem(new Model_Menu("5", "Date Table", Model_Menu.MenuType.MENU));
         
     }
@@ -50,7 +50,7 @@ public class Menu_nv extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/logo.png"))); // NOI18N
-        jLabel1.setText("Application");
+        jLabel1.setText("Nhân Viên");
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);

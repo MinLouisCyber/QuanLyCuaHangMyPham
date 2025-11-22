@@ -217,6 +217,11 @@ public class Form_QLHangHoa extends JPanel {
             JOptionPane.showMessageDialog(this, "Số lượng nhập phải là số nguyên!");
             return;
         }
+        
+        if(soLuongNhap <= 0){
+            JOptionPane.showMessageDialog(this, "Số lượng nhập phải lớn hơn 0!");
+             return;
+        }
 
         Date ngayNhan;
         Date ngayHetHan;

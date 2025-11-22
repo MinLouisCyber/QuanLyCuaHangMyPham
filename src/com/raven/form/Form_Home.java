@@ -72,21 +72,21 @@ public class Form_Home extends javax.swing.JPanel {
             // ========== SET DATA CHO 3 CARD ==========
             card1.setData(new Model_Card(
                     new ImageIcon(getClass().getResource("/com/raven/icon/stock.png")),
-                    "Stock Total",
+                    "Tổng giá trị kho",
                     formatMoney(stockTotal),
                     "Giá trị tồn kho hiện tại"
             ));
 
             card2.setData(new Model_Card(
                     new ImageIcon(getClass().getResource("/com/raven/icon/profit.png")),
-                    "Total Profit",
+                    "Tổng doanh thu",
                     formatMoney(totalRevenue),
                     "Tổng doanh thu bán hàng"
             ));
 
             card3.setData(new Model_Card(
                     new ImageIcon(getClass().getResource("/com/raven/icon/flag.png")),
-                    "Unique Visitors",
+                    "Tổng số khách hàng",
                     String.valueOf(uniqueCustomers),
                     "Số khách từng mua hàng"
             ));
@@ -178,7 +178,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18));
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
-        jLabel1.setText("Recent Invoices");
+        jLabel1.setText("Hóa đơn gần đây");
 
         spTable.setBorder(null);
 

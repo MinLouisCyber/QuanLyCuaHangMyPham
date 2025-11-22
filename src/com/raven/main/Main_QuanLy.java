@@ -12,6 +12,7 @@ import com.raven.form.Form_QLHangHoa;
 import com.raven.form.Form_Home;
 import com.raven.form.Form_QLBanHang;
 import com.raven.form.Form_QLMenu;
+import com.raven.form.Form_QLHoaDon;
 import java.awt.Color;
 import javax.swing.JComponent;
 
@@ -30,6 +31,7 @@ public class Main_QuanLy extends javax.swing.JFrame {
     private Form_QLTonKho form3;
     private Form_QLBanHang form4;
     private Form_QLMenu form5;
+    private Form_QLHoaDon form6;
 
     public Main_QuanLy() {
         initComponents();
@@ -40,6 +42,7 @@ public class Main_QuanLy extends javax.swing.JFrame {
         form3 = new Form_QLTonKho();
         form4 = new Form_QLBanHang();
         form5 = new Form_QLMenu();
+        form6 = new Form_QLHoaDon();
         menu.initMoving(Main_QuanLy.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
@@ -60,6 +63,8 @@ public class Main_QuanLy extends javax.swing.JFrame {
                 }else if (index == 5) {
                     form5.loadMenuData();
                     setForm(form5);
+                }else if(index == 6) {
+                    setForm(form6);
                 }
                 
             }
