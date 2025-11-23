@@ -29,7 +29,7 @@ public class Menu extends javax.swing.JPanel {
     }
 
     private void init() {
-        listMenu1.addItem(new Model_Menu("1", "Dashboard", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("1", "Thống Kê", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("2", "Nhân Viên", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("3", "Hàng Hóa", Model_Menu.MenuType.MENU));
         listMenu1.addItem(new Model_Menu("4", "Tồn Kho", Model_Menu.MenuType.MENU));
