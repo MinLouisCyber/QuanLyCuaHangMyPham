@@ -114,7 +114,7 @@ public class Form_Home extends javax.swing.JPanel {
             "FROM HOADON h " +
             "JOIN KHACH k ON h.MaKhach = k.MaKhach " +
             "GROUP BY k.MaKhach, k.TenKhach, k.SDTKhach, h.NgayTao " +
-            "ORDER BY h.NgayTao DESC " +
+            "ORDER BY h.NgayTao DESC, TongTienNgay DESC " +
             "LIMIT 20";
 
     try (PreparedStatement ps = conn.prepareStatement(sql);
