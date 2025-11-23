@@ -25,6 +25,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         // Load từ DB vào Dashboard
         loadDashboardFromDB();
+        
     }
 
     // ======================================================
@@ -125,7 +126,7 @@ public class Form_Home extends javax.swing.JPanel {
             Date ngay       = rs.getDate("NgayTao");
             double tongTien = rs.getDouble("TongTienNgay");
             
-            table.addRow(new Object[]{
+            model.addRow(new Object[]{
                     tenKhach,
                     sdt,
                     String.format("%,.0f VND", tongTien),
@@ -178,7 +179,7 @@ public class Form_Home extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18));
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
-        jLabel1.setText("Hóa đơn gần đây");
+        jLabel1.setText("Tổng hoá đơn theo ngày");
 
         spTable.setBorder(null);
 
